@@ -1,3 +1,4 @@
+// Importamos nuestras definiciones auxiliares.
 #include <stdio.h>
 #include <stdlib.h>
 #include "casilla.h"
@@ -7,10 +8,12 @@
 
 int main()
 {
+  // Pedimos al usuario la dimensión de nuestro mundo.
   int n;
   printf("¿Cuál es el tamaño de nuestro tablero?:");
   scanf("%d",&n);
   
+  // Inicializamos un tablero inicial cualquiera.
   struct casilla p[n][n];
   int i;
   int j;
@@ -35,6 +38,8 @@ int main()
   p[0][0].cel = 1;
   p[(n-1)][(n-1)].cel = 1;
 
+  // Inicializamos el puntero al tablero y comenzamos a 
+  // pasar por pantalla las iteraciones.
   struct casilla *t = p;
 
   print(t,n);

@@ -2,12 +2,9 @@
 // vivas de la célula a la que apunta el puntero t, y devuelve
 // dicho valor.
 
-// La codificación se basa en:
-//          X Y Z
-//        A - - -
-//        B - t -     B == i ----- Y = j
-//        C - - -
-
+// Las diferentes guardas se identifican con diferentes posiciones
+// de las células apuntadas por el puntero, de manera que definimos
+// el conteo para que el mundo sera cerrado (como una especie de esfera).
 int vivas(struct casilla *t,int n)
 {
   // Guardamos la posición de t

@@ -2,6 +2,9 @@
 
 int itera(struct casilla *t,int n)
 {  
+
+  // Inicializamos un nuevo tablero con células vivas o muertas
+  // en cada posición según la disposición del tablero anterior.
   struct casilla q[n][n];
   int i;
   int j;
@@ -41,12 +44,15 @@ int itera(struct casilla *t,int n)
         q[i][j].y = i;
         q[i][j].cel = 0; }
 
+  // Introducimos una pausa para apreciar las iteraciones.
   int c;
   printf("¡Escribe un número y presiona enter para continuar!\n");
   scanf("%d\n",&c);
 
+  // Imprimimos nuestro nuevo tablero.
   struct casilla *s = q;
   print(s,n);
   
+  // Iteramos con un paso recursivo.
   return itera(s,n);
 }

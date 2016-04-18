@@ -1,5 +1,8 @@
 // Definimos la funcion que nos permitirá imprimir el tablero
-// después de cada iteración
+// después de cada iteración.
+
+// Imprimirá un espacio para celulas muerta y una X para celulas
+// vivas.
 
 int print(struct casilla  *t, int n)
 {
