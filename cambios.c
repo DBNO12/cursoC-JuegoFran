@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include "cambiosvivas.h"
+#include "vecina.h"
+#include "print.h"
 
 int main()
 {
@@ -13,23 +15,29 @@ int main()
   
   // Inicializamos un tablero inicial cualquiera.
   int p[n][n];
+  int *t = p;
+  int q[n][n];
+  int *s = q;
+
   int i;
   int j;
-  int r;
 
   for (j = 0; j < n; j++)
-    {for (i = 0; i < n; i++)
-         { p[i][j] = 1; 
+    for (i = 0; i < n; i++)
+         { p[i][j] = 0; 
            i++;
-           p[i][j] = 0; }; };
-      
+           p[i][j] = 1; }; 
 
   for (j = 0; j < n; j++)
-    { for (i = 0; i < (n-1); i++)
-        {printf(" %d ", p[i][j]);}
-        printf(" %d\n", p[i][j]); };
+    { for (i = 0; i < n; i++)
+        printf(" %d ", p[i][j]);
+      printf("\n"); };
 
-  //printf("%d\n", vivas(p,n,3,3));
+  printf("\n\n\n");
+
+  print(t,n);
+  
+  //itera (t,s,n);
 
   return 0;
 

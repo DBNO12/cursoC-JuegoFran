@@ -4,26 +4,15 @@
 // Imprimirá un espacio para celulas muerta y una X para celulas
 // vivas.
 
-int print(struct casilla  *t, int n)
+int print(int *t, int n)
 {
   int i;
   int j;
-  int r;
-  
-  for (i = 0, j = 0, r = 0; r < (n*n); r++, j++, t++)
-    if ((j == (n-1)) && (t->cel == 1))
-      { printf("X\n");
-        j = -1;
-        i++; }
-    else if ( j == (n-1) )
-      { printf(" \n");
-        j = -1;
-        i++; }
-    else if ( t->cel == 1 )
-      printf("X");
-    else 
-     printf(" ");
-  printf("\n");
+
+  for (j = 0; j < n; j++)
+    { for (i = 0; i < n; i++, t++)
+        printf(" %d ", *t);
+      printf("\n"); }
 
   return 0;
 }
