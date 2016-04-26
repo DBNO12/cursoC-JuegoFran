@@ -1,19 +1,43 @@
 // Importamos nuestras definiciones auxiliares.
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <getopt.h>
 #include "vivas.h"
 #include "vecina.h"
 #include "print.h"
 #include "itera.h"
 
-int main()
+int main(int argc, char **argv)
 {
   // Mensaje de bienvenida
   printf("¡¡Bienvenido al Juego De La Vida!!\n");
-  // Pedimos al usuario la dimensión de nuestro mundo.
-  int n;
-  printf("¿Cuál es el tamaño de nuestro tablero?: ");
-  scanf("%d",&n);
-  
+   
+  // Argumentos de main
+  int n = 15;
+
+  int option_index;
+  int c;
+
+  static struct option long_options[] =
+  {
+    {"size", optional_argument, 0, 's'},
+    { 0, 0, 0, 0 }
+  };
+
+  while ((c = getopt_long(argc, **argv, "s:", long_options,
+                          &option_index)) != -1) {
+    switch (c) {
+    case 's':
+      n = strtol(optagr, NULL, 0);
+      break;
+    default
+      printf("ERROR\n");
+      exit(EXIT_FAILURE);
+    }
+  }
+
   // Inicializamos un tablero inicial cualquiera.
   int p[n][n];
   int *t = p;
