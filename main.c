@@ -17,18 +17,20 @@ int main(int argc, char **argv)
   scanf("%d", &n);
   printf("\n");
 
-  // Pedimos el número finito de iteraciones
-  int m;
-  printf("¿Cuántos pasos quieres hacer en un mundo?: ");
-  scanf("%d",&m);
-  printf("\n");
-   
   // Inicializamos un tablero inicial cualquiera.
   int p[n][n];
-  int *t = p;
+  int *w1 = p;
   int q[n][n];
-  int *s = q;
+  int *w2 = q;
 
+  // Inicializamos el struct gol
+  struct gol world;
+  world.w1 = w1;
+  world.w2 = w2;
+  world.tam = n;
+  struct gol *w = world;
+
+  // Bichito
   int i;
   int j;
 
@@ -42,9 +44,11 @@ int main(int argc, char **argv)
   p[7][5] = 1;
   p[7][6] = 1;
   
-// Imprimimos nuestro mundo y comenzamos a iterar.
-  printf("\n");
-  itera(t,s,n,m,0);
+  print(w);
+  for (i = 0; i < n; i++) {
+    itera(w);
+    print(w);
+  }
 
   return 0;
 }
