@@ -16,18 +16,17 @@ int itera(struct gol *w)
 // Cambiamos el array - tablero según las reglas de nuestro juego
 // a través de un puntero
   for (i = 0; i < w->tam; i++)
-    for (j = 0; j < w->tam; j++, w->w2++) {
+    for (j = 0; j < w->tam; j++) {
        vecinas = vivas(w,i,j);
-       cell  = vecina(w,i,j);
-       if ((cell) && (vecinas >= 2) && 
-           (vecinas <= 3))
-          *w->w2 = 1;
+       cell = vecina(w,i,j);
+       if ((cell) && (vecinas >= 2) && (vecinas <= 3))
+         set_cell(w,i,j,1);
         else if (cell)
-          *w->w2 = 0;
+          set_cell(w,i,j,0);
         else if (vecinas == 3)
-          *w->w2 = 1;
+          set_cell(w,i,j,1);
         else
-          *w->w2 = 0; 
+          set_cell(w,i,j,0); 
     }
 
 // Cambiamos los punteros
@@ -35,7 +34,7 @@ int itera(struct gol *w)
   w->w2 = w->w1;
   w->w1 = aux;
   
-  return 0
+  return 0;
 }
 
 int print(struct gol *w)
@@ -44,8 +43,8 @@ int print(struct gol *w)
   int j;
 
   for (i = 0; i < w->tam; i++) { 
-    for (j = 0; j < w->tam; j++, w->w1++)
-        printf(" %d ", *w->w1);
+    for (j = 0; j < w->tam; j++)
+      printf(" %d ", vecina(w,i,j));
       printf("\n"); 
 }
 
@@ -64,7 +63,7 @@ int vecina(struct gol *w, int x, int y)
   if (y < 0)
     y += w->tam;
 
-  return *(w->w1 + w->tam*x + y);
+  return *(w->w1 + x*w->tam + y);
   
 }
 
@@ -96,7 +95,8 @@ struct gol *gol_alloc(int tam)
   w->w2 = (int *)malloc(tam*tam*sizeof(int));
   if (!w->w2)
     return NULL;
-  w-> tam = tam - 1;
+
+  w->tam = tam;
 
   return w;
 }
@@ -108,8 +108,20 @@ void gol_free(struct gol *w)
   free(w);
 }
 
-void gol_init(struct world *w)
+void gol_init(struct gol *w)
 {
   memset(w->w1, 0, w->tam*w->tam*sizeof(int));
   memset(w->w2, 0, w->tam*w->tam*sizeof(int));
+  
+  *(w->w1 + 1) = 1;
+  *(w->w1 + w->tam + 2) = 1;
+  *(w->w1 + 2*w->tam) = 1;
+  *(w->w1 + 2*w->tam + 1) = 1;
+  *(w->w1 + 2*w->tam + 2) = 1;
 }
+
+void set_cell(struct gol *w, int i, int j, int x)
+{
+  *(w->w2 + i*w->tam + j) = x;
+}
+

@@ -6,6 +6,8 @@
 #include <getopt.h>
 #include "mundo.h"
 
+#define ITS 25
+
 int main(int argc, char **argv)
 {
   // Mensaje de bienvenida
@@ -17,39 +19,26 @@ int main(int argc, char **argv)
   scanf("%d", &n);
   printf("\n");
 
-  // Inicializamos un tablero inicial cualquiera.
-  int p[n][n];
-  int *w1 = p;
-  int q[n][n];
-  int *w2 = q;
-
-  // Inicializamos el struct gol
-  struct gol world;
-  world.w1 = w1;
-  world.w2 = w2;
-  world.tam = n;
-  struct gol *w = world;
-
-  // Bichito
-  int i;
-  int j;
-
-  for (i = 0; i < n; i++)
-    for (j = 0; j < n; j++) { 
-           p[i][j] = 0; 
-};
-  p[5][5] = 1;
-  p[6][6] = 1;
-  p[7][4] = 1;
-  p[7][5] = 1;
-  p[7][6] = 1;
+  struct gol *w;
+  w = gol_alloc(n);
+  if (!w) {
+    perror("Error en gol_alloc -- main.c");
+    exit(EXIT_FAILURE);
+  }
+  gol_init(w);
   
-  print(w);
-  for (i = 0; i < n; i++) {
-    itera(w);
+  int i;
+  int pausa;
+  for (i = 0; i < ITS; i++) {
     print(w);
+    itera(w);
+    printf("Escribe un número para continuar: ");
+    scanf("%d",&pausa);
+    printf("\n");
   }
 
+  gol_free(w);
+  
   return 0;
 }
   
