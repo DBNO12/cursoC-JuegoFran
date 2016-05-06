@@ -41,14 +41,27 @@ int print(struct gol *w)
 {
   int i;
   int j;
+  int x;
 
-  for (i = 0; i < w->tam; i++) { 
-    for (j = 0; j < w->tam; j++)
-      printf(" %d ", vecina(w,i,j));
-      printf("\n"); 
-}
-
-  printf("\n");
+  printf("+");
+  for (i = 0; i < w->tam; i++)
+    printf("-");
+  printf("+\n");
+  for (i = 0; i < w->tam; i++) {
+    printf("|");
+    for (j = 0; j < w->tam; j++) {
+      x = vecina(w,i,j);
+      if (x)
+        printf("X");
+      else
+        printf(" ");
+    }
+      printf("|\n"); 
+  }
+  printf("+");
+  for (i = 0; i < w->tam; i++)
+    printf("-");
+  printf("+\n\n");
   
   return 0;
 }
