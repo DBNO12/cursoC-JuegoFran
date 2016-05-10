@@ -12,11 +12,45 @@ int main(int argc, char **argv)
 {
   // Mensaje de bienvenida
   printf("¡¡Bienvenido al Juego De La Vida!!\n");
-  
-  // Pedimos el tamaño de nuestro mundo
-  int n;
-  printf("Ingresa el tamaño de tu mundo: ");
-  scanf("%d", &n);
+
+  // Argumentos de main
+  int n = 10; // Valor del tamaño del mundo por defecto
+
+  int option_index = 0;
+  int c;
+
+  static struct option long_options[] =
+  {
+    {"size", optional_argument, 0, 's'},
+    {"manual", optional_argument, 0, 'm'},
+    {"help", optional_argument, 0, 'h'},
+    { 0, 0, 0, 0 }
+  };
+
+  while ((c = getopt_long(argc, argv, "s:m::h::", long_options,
+                          &option_index)) != -1) {
+    switch (c) {
+    case 's':
+      // Recogemos tamaño por argumento de main
+      n = strtol(optarg, NULL, 0); 
+      break;
+    case 'm':
+      // Recogemos tamaño por consola, pidiendolo al usuario
+      printf("Ingresa el tamaño de tu mundo: ");
+      scanf("%d", &n);
+      break;
+    case 'h':
+      printf("++ Ayuda del Juego de La Vida -- Fran ++\n");
+      printf("Ingresa -s para dar el tamaño de tu tablero directamente\n");
+      printf("Ingresa --manual para dar el tamaño de tu tablero de manera manual por consola");
+      return 0;
+    default:
+      printf("ERROR EN LA RECOGIDA DE ARGUMENTOS\n");
+      exit(EXIT_FAILURE);
+    }
+  }
+
+
   printf("\n");
 
   struct gol *w;
